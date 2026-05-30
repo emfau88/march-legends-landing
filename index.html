@@ -6,7 +6,7 @@
   <title>March Legends — Die digitale Hall of Fame für Extremmärsche</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
   <style>
     :root {
@@ -35,7 +35,7 @@
     }
 
     body {
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      font-family: 'Manrope', -apple-system, BlinkMacSystemFont, sans-serif;
       background: var(--bg);
       color: var(--text);
       line-height: 1.7;
@@ -44,7 +44,7 @@
     }
 
     h1, h2, h3, h4 {
-      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-family: 'Manrope', -apple-system, BlinkMacSystemFont, sans-serif;
       font-weight: 400;
       letter-spacing: -0.01em;
       line-height: 1.15;
@@ -216,73 +216,47 @@
       margin-top: 20px;
     }
 
-    .hero-phones {
+    .hero-screenshot {
       margin-top: 56px;
-      display: flex;
-      justify-content: center;
-      align-items: flex-start;
-      gap: 22px;
-      flex-wrap: wrap;
-    }
-
-    .hero-phones .phone-mockup:nth-child(2) {
-      display: none;
-      transform: translateY(28px);
-    }
-
-    @media (min-width: 768px) {
-      .hero-phones .phone-mockup:nth-child(2) {
-        display: block;
-      }
-    }
-
-    .phone-mockup {
       width: 100%;
-      max-width: 282px;
-      aspect-ratio: 9 / 19;
-      background: linear-gradient(180deg, var(--surface-light) 0%, var(--surface) 100%);
-      border-radius: 36px;
-      border: 3px solid rgba(185, 178, 164, 0.15);
-      position: relative;
-      margin: 0 auto;
+      max-width: 420px;
+      border-radius: 28px;
       overflow: hidden;
+      border: 1px solid var(--border-hover);
+      background: var(--surface);
       box-shadow:
-        0 0 0 1px rgba(185, 178, 164, 0.05),
-        0 40px 80px -20px rgba(0,0,0,0.65),
-        0 0 60px -10px rgba(201, 166, 70, 0.08);
+        0 40px 90px -30px rgba(0,0,0,0.75),
+        0 0 70px -20px rgba(201, 166, 70, 0.18);
     }
 
-    .phone-mockup::before {
-      content: '';
-      position: absolute;
-      top: 14px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 80px;
-      height: 22px;
-      background: #03080a;
-      border-radius: 12px;
-      z-index: 3;
+    .hero-screenshot img {
+      width: 100%;
+      display: block;
     }
 
-    .phone-screen {
-      position: absolute;
-      top: 44px;
-      left: 14px;
-      right: 14px;
-      bottom: 14px;
-      border-radius: 24px;
+    .instant-feedback {
+      margin-top: 32px;
+      padding: 24px;
       background: var(--surface);
       border: 1px solid var(--border);
-      overflow: hidden;
-      padding: 0;
+      border-radius: 20px;
+      max-width: 640px;
     }
 
-    .phone-screen img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
+    .instant-feedback h3 {
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+
+    .instant-feedback p {
+      color: var(--text-secondary);
+      font-size: 0.92rem;
+      margin-bottom: 18px;
+      line-height: 1.6;
+    }
+
+    .instant-feedback .radio-group {
+      margin-bottom: 18px;
     }
 
     .problem {
@@ -329,7 +303,7 @@
       background: var(--bg);
       border-radius: 16px;
       border-left: 3px solid var(--gold);
-      font-family: 'Cormorant Garamond', serif;
+      font-family: 'Manrope', sans-serif;
       font-size: 1.25rem;
       font-style: italic;
       color: var(--text);
@@ -418,8 +392,20 @@
       text-align: center;
     }
 
-    .screenshot-card .phone-mockup {
-      max-width: 238px;
+    .screenshot-image {
+      width: 100%;
+      max-width: 280px;
+      margin: 0 auto;
+      border-radius: 24px;
+      overflow: hidden;
+      border: 1px solid var(--border-hover);
+      background: var(--bg);
+      box-shadow: 0 24px 60px -28px rgba(0,0,0,0.75);
+    }
+
+    .screenshot-image img {
+      width: 100%;
+      display: block;
     }
 
     .screenshot-card h3 {
@@ -488,7 +474,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      font-family: 'Cormorant Garamond', serif;
+      font-family: 'Manrope', sans-serif;
       font-size: 0.85rem;
       font-weight: 600;
       color: var(--gold);
@@ -497,7 +483,7 @@
     }
 
     .timeline-content h4 {
-      font-family: 'Cormorant Garamond', serif;
+      font-family: 'Manrope', sans-serif;
       font-size: 1.2rem;
       font-weight: 500;
       color: var(--text);
@@ -520,7 +506,7 @@
     }
 
     .legend-quote p {
-      font-family: 'Cormorant Garamond', serif;
+      font-family: 'Manrope', sans-serif;
       font-size: 1.4rem;
       font-style: italic;
       color: var(--text);
@@ -656,7 +642,7 @@
       border: 1.5px solid var(--border);
       border-radius: 12px;
       color: var(--text);
-      font-family: 'Inter', sans-serif;
+      font-family: 'Manrope', sans-serif;
       font-size: 0.95rem;
       transition: border-color 0.2s ease;
     }
@@ -722,7 +708,7 @@
     }
 
     .closing p {
-      font-family: 'Cormorant Garamond', serif;
+      font-family: 'Manrope', sans-serif;
       font-size: 1.3rem;
       color: var(--text-secondary);
       font-style: italic;
@@ -746,7 +732,7 @@
     }
 
     footer .footer-brand {
-      font-family: 'Cormorant Garamond', serif;
+      font-family: 'Manrope', sans-serif;
       font-size: 1.1rem;
       color: var(--text);
       opacity: 0.8;
@@ -821,18 +807,19 @@
         <a href="#feedback" class="btn btn-outline">Early Tester werden</a>
       </div>
 
-      <div class="hero-phones">
-        <div class="phone-mockup">
-          <div class="phone-screen">
-            <img src="./01_home_android.png" alt="March Legends Übersicht">
-          </div>
-        </div>
+      <div class="hero-screenshot">
+        <img src="./04_hall_of_fame_android.png" alt="March Legends Hall of Fame">
+      </div>
 
-        <div class="phone-mockup">
-          <div class="phone-screen">
-            <img src="./04_hall_of_fame_android.png" alt="March Legends Hall of Fame">
-          </div>
+      <div class="instant-feedback">
+        <h3>Würdest du March Legends nutzen?</h3>
+        <p>Hilf kurz einzuschätzen, ob diese App für die Extremwander-Community wirklich Sinn macht.</p>
+        <div class="radio-group">
+          <label class="radio-option"><input type="radio" name="instant-q1" value="ja"><span>Ja, würde ich nutzen</span></label>
+          <label class="radio-option"><input type="radio" name="instant-q1" value="vielleicht"><span>Vielleicht — kommt auf die Umsetzung an</span></label>
+          <label class="radio-option"><input type="radio" name="instant-q1" value="nein"><span>Nein, eher nicht</span></label>
         </div>
+        <a href="#feedback" class="btn btn-primary">Mehr Feedback geben</a>
       </div>
     </div>
   </section>
@@ -919,60 +906,48 @@
 
       <div class="screenshot-grid">
         <div class="screenshot-card">
-          <div class="phone-mockup">
-            <div class="phone-screen">
-              <img src="./01_home_android.png" alt="March Legends Übersicht">
-            </div>
+          <div class="screenshot-image">
+            <img src="./01_home_android.png" alt="March Legends Übersicht">
           </div>
           <h3>Übersicht</h3>
           <p>Dein Dashboard mit Veteranenstatus, Saisonstatistik und letzten Finishes.</p>
         </div>
 
         <div class="screenshot-card">
-          <div class="phone-mockup">
-            <div class="phone-screen">
-              <img src="./02_events_android.png" alt="March Legends Events">
-            </div>
+          <div class="screenshot-image">
+            <img src="./02_events_android.png" alt="March Legends Events">
           </div>
           <h3>Events</h3>
           <p>Event-Presets, eigene Einträge und deine persönliche Marschhistorie.</p>
         </div>
 
         <div class="screenshot-card">
-          <div class="phone-mockup">
-            <div class="phone-screen">
-              <img src="./03_add_event_android.png" alt="March Legends Event hinzufügen">
-            </div>
+          <div class="screenshot-image">
+            <img src="./03_add_event_android.png" alt="March Legends Event hinzufügen">
           </div>
           <h3>Event hinzufügen</h3>
           <p>Trage absolvierte Märsche ein und lade optional deinen Nachweis hoch.</p>
         </div>
 
         <div class="screenshot-card">
-          <div class="phone-mockup">
-            <div class="phone-screen">
-              <img src="./04_hall_of_fame_android.png" alt="March Legends Hall of Fame">
-            </div>
+          <div class="screenshot-image">
+            <img src="./04_hall_of_fame_android.png" alt="March Legends Hall of Fame">
           </div>
           <h3>Hall of Fame</h3>
           <p>Deine digitale Medaillenwand. Jeder Finish als sichtbarer Meilenstein.</p>
         </div>
 
         <div class="screenshot-card">
-          <div class="phone-mockup">
-            <div class="phone-screen">
-              <img src="./05_leaderboard_android.png" alt="March Legends Ranglisten">
-            </div>
+          <div class="screenshot-image">
+            <img src="./05_leaderboard_android.png" alt="March Legends Ranglisten">
           </div>
           <h3>Ranglisten</h3>
           <p>Community-Rankings auf Basis verifizierter Events und Saisonleistung.</p>
         </div>
 
         <div class="screenshot-card">
-          <div class="phone-mockup">
-            <div class="phone-screen">
-              <img src="./06_profile_mara_android.png" alt="March Legends Profil Mara">
-            </div>
+          <div class="screenshot-image">
+            <img src="./06_profile_mara_android.png" alt="March Legends Profil Mara">
           </div>
           <h3>Profil</h3>
           <p>Dein Veteranenprofil mit Statistiken, Auszeichnungen und Hall-of-Fame-Vorschau.</p>
@@ -1133,7 +1108,7 @@
 
   <script>
     const revealElements = document.querySelectorAll(
-      '.section-header, .solution-card, .screenshot-card, .timeline-item, .legend-quote, .form-group'
+      '.section-header, .solution-card, .screenshot-card, .timeline-item, .legend-quote, .form-group, .instant-feedback'
     );
 
     const revealObserver = new IntersectionObserver((entries) => {
