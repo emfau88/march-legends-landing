@@ -1,1252 +1,1165 @@
 <!DOCTYPE html>
 <html lang="de">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>March Legends — Die digitale Hall of Fame für Extremmärsche</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --bg: #071014;
-            --surface: #10181D;
-            --surface-light: #172126;
-            --text: #F5F1E8;
-            --text-secondary: #B9B2A4;
-            --gold: #C9A646;
-            --gold-light: #E0C778;
-            --border: rgba(185, 178, 164, 0.12);
-            --border-hover: rgba(185, 178, 164, 0.25);
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            -webkit-tap-highlight-color: transparent;
-        }
-
-        html {
-            scroll-behavior: smooth;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-        }
-
-        body {
-            font-family: 'Inter', -apple-system, sans-serif;
-            background: var(--bg);
-            color: var(--text);
-            line-height: 1.7;
-            font-size: 15px;
-            overflow-x: hidden;
-        }
-
-        h1, h2, h3, h4 {
-            font-family: 'Cormorant Garamond', Georgia, serif;
-            font-weight: 400;
-            letter-spacing: -0.01em;
-            line-height: 1.15;
-        }
-
-        h1 {
-            font-size: clamp(2.2rem, 7vw, 3.8rem);
-            font-weight: 300;
-        }
-
-        h2 {
-            font-size: clamp(1.6rem, 5vw, 2.6rem);
-            font-weight: 400;
-        }
-
-        h3 {
-            font-size: clamp(1.15rem, 3.5vw, 1.5rem);
-            font-weight: 500;
-        }
-
-        .label {
-            font-family: 'Inter', sans-serif;
-            font-size: 0.7rem;
-            font-weight: 500;
-            letter-spacing: 0.18em;
-            text-transform: uppercase;
-            color: var(--gold);
-        }
-
-        .body-large {
-            font-size: 1.05rem;
-            line-height: 1.75;
-            color: var(--text-secondary);
-        }
-
-        .container {
-            width: 100%;
-            max-width: 1100px;
-            margin: 0 auto;
-            padding: 0 22px;
-        }
-
-        section {
-            padding: 72px 0;
-        }
-
-        @media (min-width: 768px) {
-            section {
-                padding: 100px 0;
-            }
-        }
-
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            padding: 16px 28px;
-            border-radius: 8px;
-            font-size: 0.9rem;
-            font-weight: 500;
-            letter-spacing: 0.02em;
-            text-decoration: none;
-            cursor: pointer;
-            border: none;
-            transition: all 0.25s ease;
-            font-family: 'Inter', sans-serif;
-            width: 100%;
-            min-height: 52px;
-        }
-
-        .btn-primary {
-            background: var(--gold);
-            color: var(--bg);
-        }
-
-        .btn-primary:hover, .btn-primary:active {
-            background: var(--gold-light);
-            transform: translateY(-1px);
-        }
-
-        .btn-outline {
-            background: transparent;
-            color: var(--text);
-            border: 1.5px solid var(--border-hover);
-        }
-
-        .btn-outline:hover, .btn-outline:active {
-            border-color: var(--gold);
-            color: var(--gold);
-        }
-
-        .btn-group {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-            margin-top: 32px;
-        }
-
-        @media (min-width: 480px) {
-            .btn-group {
-                flex-direction: row;
-                flex-wrap: wrap;
-            }
-            .btn {
-                width: auto;
-                min-width: 200px;
-            }
-        }
-
-        .card {
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: 16px;
-            padding: 28px 24px;
-            transition: border-color 0.3s ease, transform 0.3s ease;
-        }
-
-        .card:hover {
-            border-color: var(--border-hover);
-        }
-
-        .card-icon {
-            width: 44px;
-            height: 44px;
-            border-radius: 12px;
-            background: var(--surface-light);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 18px;
-            font-size: 1.3rem;
-        }
-
-        .phone-mockup {
-            width: 100%;
-            max-width: 280px;
-            aspect-ratio: 9/19;
-            background: linear-gradient(180deg, var(--surface-light) 0%, var(--surface) 100%);
-            border-radius: 36px;
-            border: 3px solid rgba(185, 178, 164, 0.15);
-            position: relative;
-            margin: 0 auto;
-            overflow: hidden;
-            box-shadow:
-                0 0 0 1px rgba(185, 178, 164, 0.05),
-                0 40px 80px -20px rgba(0,0,0,0.6),
-                0 0 60px -10px rgba(201, 166, 70, 0.08);
-        }
-
-        .phone-mockup::before {
-            content: '';
-            position: absolute;
-            top: 14px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 80px;
-            height: 22px;
-            background: var(--bg);
-            border-radius: 12px;
-            z-index: 2;
-        }
-
-        .phone-screen {
-            position: absolute;
-            top: 44px;
-            left: 14px;
-            right: 14px;
-            bottom: 14px;
-            border-radius: 24px;
-            background: var(--surface);
-            border: 1px solid var(--border);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-            text-align: center;
-        }
-
-        .phone-screen .placeholder-icon {
-            font-size: 2.5rem;
-            margin-bottom: 16px;
-            opacity: 0.5;
-        }
-
-        .phone-screen .placeholder-label {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 1.1rem;
-            color: var(--text-secondary);
-            font-style: italic;
-        }
-
-        .phone-screen .placeholder-sub {
-            font-size: 0.7rem;
-            color: var(--text-secondary);
-            opacity: 0.5;
-            margin-top: 8px;
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
-        }
-
-        .divider {
-            width: 48px;
-            height: 1px;
-            background: var(--gold);
-            opacity: 0.4;
-            margin: 20px 0;
-        }
-
-        .divider-center {
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .section-header {
-            margin-bottom: 48px;
-        }
-
-        .section-header h2 {
-            margin-top: 16px;
-            margin-bottom: 16px;
-        }
-
-        .section-header p {
-            max-width: 540px;
-        }
-
-        /* HERO */
-        .hero {
-            min-height: 100dvh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            padding: 100px 0 60px;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .hero-bg {
-            position: absolute;
-            inset: 0;
-            background:
-                radial-gradient(ellipse 80% 60% at 20% 40%, rgba(201, 166, 70, 0.04) 0%, transparent 60%),
-                radial-gradient(ellipse 60% 50% at 80% 80%, rgba(201, 166, 70, 0.03) 0%, transparent 50%);
-            pointer-events: none;
-        }
-
-        .hero-content {
-            position: relative;
-            z-index: 1;
-        }
-
-        .hero-label {
-            margin-bottom: 20px;
-        }
-
-        .hero h1 {
-            max-width: 600px;
-            margin-bottom: 20px;
-        }
-
-        .hero-subtitle {
-            font-size: 1.05rem;
-            color: var(--text-secondary);
-            max-width: 480px;
-            line-height: 1.7;
-        }
-
-        .hero-phones {
-            margin-top: 56px;
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            flex-wrap: wrap;
-        }
-
-        .hero-phones .phone-mockup:nth-child(2) {
-            transform: translateY(24px);
-            display: none;
-        }
-
-        @media (min-width: 768px) {
-            .hero-phones .phone-mockup:nth-child(2) {
-                display: block;
-            }
-            .hero {
-                padding: 120px 0 80px;
-            }
-        }
-
-        /* PROBLEM */
-        .problem {
-            background: var(--surface);
-        }
-
-        .problem-items {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 12px;
-            margin-top: 40px;
-        }
-
-        .problem-item {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-            padding: 18px 20px;
-            background: var(--bg);
-            border-radius: 12px;
-            border: 1px solid var(--border);
-            font-size: 0.95rem;
-            color: var(--text-secondary);
-        }
-
-        .problem-item .dot {
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            background: var(--gold);
-            opacity: 0.6;
-            flex-shrink: 0;
-        }
-
-        .problem-conclusion {
-            margin-top: 32px;
-            padding: 24px;
-            background: var(--bg);
-            border-radius: 16px;
-            border-left: 3px solid var(--gold);
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 1.25rem;
-            font-style: italic;
-            color: var(--text);
-            line-height: 1.5;
-        }
-
-        @media (min-width: 640px) {
-            .problem-items {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-
-        /* SOLUTION */
-        .solution-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 16px;
-            margin-top: 40px;
-        }
-
-        .solution-card {
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: 20px;
-            padding: 32px 24px;
-            transition: border-color 0.3s ease;
-        }
-
-        .solution-card:hover {
-            border-color: var(--border-hover);
-        }
-
-        .solution-card h3 {
-            color: var(--gold-light);
-            margin-bottom: 10px;
-        }
-
-        .solution-card p {
-            color: var(--text-secondary);
-            font-size: 0.92rem;
-            line-height: 1.65;
-        }
-
-        @media (min-width: 640px) {
-            .solution-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-
-        @media (min-width: 900px) {
-            .solution-grid {
-                grid-template-columns: repeat(3, 1fr);
-            }
-        }
-
-        /* SCREENSHOTS */
-        .screenshots {
-            background: var(--surface);
-        }
-
-        .screenshot-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 24px;
-            margin-top: 40px;
-        }
-
-        .screenshot-card {
-            text-align: center;
-        }
-
-        .screenshot-card .phone-mockup {
-            max-width: 240px;
-        }
-
-        .screenshot-card h3 {
-            margin-top: 20px;
-            margin-bottom: 6px;
-            font-size: 1.1rem;
-        }
-
-        .screenshot-card p {
-            color: var(--text-secondary);
-            font-size: 0.85rem;
-            max-width: 260px;
-            margin: 0 auto;
-            line-height: 1.6;
-        }
-
-        @media (min-width: 640px) {
-            .screenshot-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-
-        /* LEGEND */
-        .legend {
-            position: relative;
-            overflow: hidden;
-        }
-
-        .legend-bg {
-            position: absolute;
-            inset: 0;
-            background:
-                radial-gradient(ellipse 70% 50% at 50% 50%, rgba(201, 166, 70, 0.035) 0%, transparent 70%);
-            pointer-events: none;
-        }
-
-        .legend-content {
-            position: relative;
-            z-index: 1;
-        }
-
-        .legend-timeline {
-            margin-top: 48px;
-            display: flex;
-            flex-direction: column;
-            gap: 0;
-            position: relative;
-        }
-
-        .legend-timeline::before {
-            content: '';
-            position: absolute;
-            left: 19px;
-            top: 0;
-            bottom: 0;
-            width: 1px;
-            background: linear-gradient(180deg, var(--gold) 0%, var(--border) 100%);
-            opacity: 0.3;
-        }
-
-        .timeline-item {
-            display: flex;
-            gap: 24px;
-            padding: 24px 0;
-            position: relative;
-        }
-
-        .timeline-dot {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background: var(--surface);
-            border: 2px solid var(--gold);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 0.85rem;
-            font-weight: 600;
-            color: var(--gold);
-            flex-shrink: 0;
-            z-index: 1;
-        }
-
-        .timeline-content h4 {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 1.2rem;
-            font-weight: 500;
-            color: var(--text);
-            margin-bottom: 6px;
-        }
-
-        .timeline-content p {
-            color: var(--text-secondary);
-            font-size: 0.9rem;
-            line-height: 1.6;
-        }
-
-        .legend-quote {
-            margin-top: 48px;
-            padding: 36px 28px;
-            background: var(--surface);
-            border-radius: 20px;
-            border: 1px solid var(--border);
-            text-align: center;
-        }
-
-        .legend-quote p {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 1.4rem;
-            font-style: italic;
-            color: var(--text);
-            line-height: 1.5;
-        }
-
-        .legend-quote .quote-author {
-            margin-top: 16px;
-            font-family: 'Inter', sans-serif;
-            font-size: 0.75rem;
-            letter-spacing: 0.15em;
-            text-transform: uppercase;
-            color: var(--gold);
-        }
-
-        /* FEEDBACK */
-        .feedback {
-            background: var(--surface);
-        }
-
-        .feedback-form {
-            max-width: 640px;
-            margin: 0 auto;
-            margin-top: 48px;
-        }
-
-        .form-group {
-            margin-bottom: 32px;
-        }
-
-        .form-group label {
-            display: block;
-            font-size: 0.95rem;
-            font-weight: 500;
-            color: var(--text);
-            margin-bottom: 14px;
-            line-height: 1.5;
-        }
-
-        .form-group .label-hint {
-            display: block;
-            font-size: 0.8rem;
-            color: var(--text-secondary);
-            margin-top: 4px;
-            font-weight: 400;
-        }
-
-        .radio-group {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-
-        .radio-option {
-            display: flex;
-            align-items: center;
-            gap: 14px;
-            padding: 16px 18px;
-            background: var(--bg);
-            border: 1.5px solid var(--border);
-            border-radius: 12px;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            font-size: 0.92rem;
-            color: var(--text-secondary);
-        }
-
-        .radio-option:hover {
-            border-color: var(--border-hover);
-        }
-
-        .radio-option input[type="radio"] {
-            appearance: none;
-            -webkit-appearance: none;
-            width: 20px;
-            height: 20px;
-            border: 2px solid var(--border-hover);
-            border-radius: 50%;
-            flex-shrink: 0;
-            cursor: pointer;
-            position: relative;
-            transition: all 0.2s ease;
-        }
-
-        .radio-option input[type="radio"]:checked {
-            border-color: var(--gold);
-            background: var(--gold);
-        }
-
-        .radio-option input[type="radio"]:checked::after {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 7px;
-            height: 7px;
-            background: var(--bg);
-            border-radius: 50%;
-        }
-
-        .radio-option:has(input:checked) {
-            border-color: var(--gold);
-            color: var(--text);
-        }
-
-        .checkbox-group {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-
-        .checkbox-option {
-            display: flex;
-            align-items: center;
-            gap: 14px;
-            padding: 14px 18px;
-            background: var(--bg);
-            border: 1.5px solid var(--border);
-            border-radius: 12px;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            font-size: 0.92rem;
-            color: var(--text-secondary);
-        }
-
-        .checkbox-option:hover {
-            border-color: var(--border-hover);
-        }
-
-        .checkbox-option input[type="checkbox"] {
-            appearance: none;
-            -webkit-appearance: none;
-            width: 20px;
-            height: 20px;
-            border: 2px solid var(--border-hover);
-            border-radius: 6px;
-            flex-shrink: 0;
-            cursor: pointer;
-            position: relative;
-            transition: all 0.2s ease;
-        }
-
-        .checkbox-option input[type="checkbox"]:checked {
-            border-color: var(--gold);
-            background: var(--gold);
-        }
-
-        .checkbox-option input[type="checkbox"]:checked::after {
-            content: '✓';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            font-size: 12px;
-            color: var(--bg);
-            font-weight: 700;
-        }
-
-        .checkbox-option:has(input:checked) {
-            border-color: var(--gold);
-            color: var(--text);
-        }
-
-        textarea {
-            width: 100%;
-            min-height: 120px;
-            padding: 16px;
-            background: var(--bg);
-            border: 1.5px solid var(--border);
-            border-radius: 12px;
-            color: var(--text);
-            font-family: 'Inter', sans-serif;
-            font-size: 0.95rem;
-            resize: vertical;
-            transition: border-color 0.2s ease;
-        }
-
-        textarea:focus {
-            outline: none;
-            border-color: var(--gold);
-        }
-
-        textarea::placeholder {
-            color: var(--text-secondary);
-            opacity: 0.5;
-        }
-
-        .form-input {
-            width: 100%;
-            padding: 14px 16px;
-            background: var(--bg);
-            border: 1.5px solid var(--border);
-            border-radius: 12px;
-            color: var(--text);
-            font-family: 'Inter', sans-serif;
-            font-size: 0.95rem;
-            transition: border-color 0.2s ease;
-        }
-
-        .form-input:focus {
-            outline: none;
-            border-color: var(--gold);
-        }
-
-        .form-input::placeholder {
-            color: var(--text-secondary);
-            opacity: 0.5;
-        }
-
-        .form-row {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 16px;
-        }
-
-        @media (min-width: 480px) {
-            .form-row {
-                grid-template-columns: 1fr 1fr;
-            }
-        }
-
-        .form-submit {
-            margin-top: 16px;
-        }
-
-        .form-submit .btn {
-            width: 100%;
-            padding: 18px;
-            font-size: 1rem;
-            min-height: 56px;
-        }
-
-        /* CLOSING */
-        .closing {
-            text-align: center;
-            padding: 100px 0 80px;
-            position: relative;
-        }
-
-        .closing-bg {
-            position: absolute;
-            inset: 0;
-            background:
-                radial-gradient(ellipse 60% 50% at 50% 40%, rgba(201, 166, 70, 0.05) 0%, transparent 60%);
-            pointer-events: none;
-        }
-
-        .closing-content {
-            position: relative;
-            z-index: 1;
-        }
-
-        .closing h2 {
-            font-size: clamp(1.8rem, 6vw, 3rem);
-            margin-bottom: 16px;
-        }
-
-        .closing p {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 1.3rem;
-            color: var(--text-secondary);
-            font-style: italic;
-            margin-bottom: 40px;
-        }
-
-        .closing .divider {
-            margin: 0 auto 40px;
-        }
-
-        .closing .btn {
-            min-width: 260px;
-        }
-
-        /* FOOTER */
-        footer {
-            padding: 32px 0 48px;
-            text-align: center;
-            border-top: 1px solid var(--border);
-        }
-
-        footer p {
-            font-size: 0.8rem;
-            color: var(--text-secondary);
-            opacity: 0.6;
-        }
-
-        footer .footer-brand {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 1.1rem;
-            color: var(--text);
-            opacity: 0.8;
-            margin-bottom: 8px;
-        }
-
-        /* STICKY NAV */
-        .sticky-nav {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: rgba(7, 16, 20, 0.92);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border-top: 1px solid var(--border);
-            padding: 12px 16px;
-            display: flex;
-            gap: 10px;
-            z-index: 100;
-            justify-content: center;
-        }
-
-        .sticky-nav .btn {
-            min-height: 44px;
-            padding: 10px 20px;
-            font-size: 0.85rem;
-            flex: 1;
-            max-width: 180px;
-        }
-
-        .sticky-nav-spacer {
-            height: 72px;
-        }
-
-        @media (min-width: 768px) {
-            .sticky-nav {
-                display: none;
-            }
-            .sticky-nav-spacer {
-                display: none;
-            }
-        }
-
-        /* REVEAL */
-        .reveal {
-            opacity: 0;
-            transform: translateY(24px);
-            transition: opacity 0.7s ease, transform 0.7s ease;
-        }
-
-        .reveal.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        ::selection {
-            background: rgba(201, 166, 70, 0.3);
-            color: var(--text);
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>March Legends — Die digitale Hall of Fame für Extremmärsche</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg: #071014;
+      --surface: #10181D;
+      --surface-light: #172126;
+      --text: #F5F1E8;
+      --text-secondary: #B9B2A4;
+      --gold: #C9A646;
+      --gold-light: #E0C778;
+      --border: rgba(185, 178, 164, 0.12);
+      --border-hover: rgba(185, 178, 164, 0.25);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+      font-size: 15px;
+      overflow-x: hidden;
+    }
+
+    h1, h2, h3, h4 {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-weight: 400;
+      letter-spacing: -0.01em;
+      line-height: 1.15;
+    }
+
+    h1 {
+      font-size: clamp(2.25rem, 7vw, 4.25rem);
+      font-weight: 300;
+      max-width: 700px;
+    }
+
+    h2 {
+      font-size: clamp(1.75rem, 5vw, 2.8rem);
+    }
+
+    h3 {
+      font-size: clamp(1.15rem, 3.5vw, 1.55rem);
+      font-weight: 500;
+    }
+
+    .label {
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+
+    .body-large {
+      font-size: 1.05rem;
+      line-height: 1.75;
+      color: var(--text-secondary);
+    }
+
+    .container {
+      width: 100%;
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 0 22px;
+    }
+
+    section {
+      padding: 72px 0;
+    }
+
+    @media (min-width: 768px) {
+      section {
+        padding: 100px 0;
+      }
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 16px 28px;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      text-decoration: none;
+      cursor: pointer;
+      border: none;
+      transition: all 0.25s ease;
+      width: 100%;
+      min-height: 52px;
+    }
+
+    .btn-primary {
+      background: var(--gold);
+      color: var(--bg);
+    }
+
+    .btn-primary:hover {
+      background: var(--gold-light);
+      transform: translateY(-1px);
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--text);
+      border: 1.5px solid var(--border-hover);
+    }
+
+    .btn-outline:hover {
+      border-color: var(--gold);
+      color: var(--gold);
+    }
+
+    .btn-group {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-top: 32px;
+    }
+
+    @media (min-width: 480px) {
+      .btn-group {
+        flex-direction: row;
+        flex-wrap: wrap;
+      }
+
+      .btn {
+        width: auto;
+        min-width: 200px;
+      }
+    }
+
+    .divider {
+      width: 48px;
+      height: 1px;
+      background: var(--gold);
+      opacity: 0.4;
+      margin: 20px 0;
+    }
+
+    .divider-center {
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .section-header {
+      margin-bottom: 48px;
+    }
+
+    .section-header h2 {
+      margin-top: 16px;
+      margin-bottom: 16px;
+    }
+
+    .section-header p {
+      max-width: 560px;
+    }
+
+    .hero {
+      min-height: 100dvh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 100px 0 60px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 80% 60% at 20% 40%, rgba(201, 166, 70, 0.05) 0%, transparent 60%),
+        radial-gradient(ellipse 60% 50% at 80% 80%, rgba(201, 166, 70, 0.035) 0%, transparent 50%);
+      pointer-events: none;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-label {
+      margin-bottom: 20px;
+    }
+
+    .hero-subtitle {
+      font-size: 1.08rem;
+      color: var(--text-secondary);
+      max-width: 520px;
+      line-height: 1.7;
+      margin-top: 20px;
+    }
+
+    .hero-phones {
+      margin-top: 56px;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      gap: 22px;
+      flex-wrap: wrap;
+    }
+
+    .hero-phones .phone-mockup:nth-child(2) {
+      display: none;
+      transform: translateY(28px);
+    }
+
+    @media (min-width: 768px) {
+      .hero-phones .phone-mockup:nth-child(2) {
+        display: block;
+      }
+    }
+
+    .phone-mockup {
+      width: 100%;
+      max-width: 282px;
+      aspect-ratio: 9 / 19;
+      background: linear-gradient(180deg, var(--surface-light) 0%, var(--surface) 100%);
+      border-radius: 36px;
+      border: 3px solid rgba(185, 178, 164, 0.15);
+      position: relative;
+      margin: 0 auto;
+      overflow: hidden;
+      box-shadow:
+        0 0 0 1px rgba(185, 178, 164, 0.05),
+        0 40px 80px -20px rgba(0,0,0,0.65),
+        0 0 60px -10px rgba(201, 166, 70, 0.08);
+    }
+
+    .phone-mockup::before {
+      content: '';
+      position: absolute;
+      top: 14px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      height: 22px;
+      background: #03080a;
+      border-radius: 12px;
+      z-index: 3;
+    }
+
+    .phone-screen {
+      position: absolute;
+      top: 44px;
+      left: 14px;
+      right: 14px;
+      bottom: 14px;
+      border-radius: 24px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      overflow: hidden;
+      padding: 0;
+    }
+
+    .phone-screen img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .problem {
+      background: var(--surface);
+    }
+
+    .problem-items {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 12px;
+      margin-top: 40px;
+    }
+
+    @media (min-width: 640px) {
+      .problem-items {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    .problem-item {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 18px 20px;
+      background: var(--bg);
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      font-size: 0.95rem;
+      color: var(--text-secondary);
+    }
+
+    .problem-item .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--gold);
+      opacity: 0.6;
+      flex-shrink: 0;
+    }
+
+    .problem-conclusion {
+      margin-top: 32px;
+      padding: 24px;
+      background: var(--bg);
+      border-radius: 16px;
+      border-left: 3px solid var(--gold);
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.25rem;
+      font-style: italic;
+      color: var(--text);
+      line-height: 1.5;
+    }
+
+    .solution-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 16px;
+      margin-top: 40px;
+    }
+
+    @media (min-width: 640px) {
+      .solution-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (min-width: 900px) {
+      .solution-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    .solution-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 32px 24px;
+      transition: border-color 0.3s ease, transform 0.3s ease;
+    }
+
+    .solution-card:hover {
+      border-color: var(--border-hover);
+      transform: translateY(-2px);
+    }
+
+    .card-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      background: var(--surface-light);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 18px;
+      font-size: 1.3rem;
+    }
+
+    .solution-card h3 {
+      color: var(--gold-light);
+      margin-bottom: 10px;
+    }
+
+    .solution-card p {
+      color: var(--text-secondary);
+      font-size: 0.92rem;
+      line-height: 1.65;
+    }
+
+    .screenshots {
+      background: var(--surface);
+    }
+
+    .screenshot-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 32px 24px;
+      margin-top: 40px;
+    }
+
+    @media (min-width: 640px) {
+      .screenshot-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (min-width: 960px) {
+      .screenshot-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    .screenshot-card {
+      text-align: center;
+    }
+
+    .screenshot-card .phone-mockup {
+      max-width: 238px;
+    }
+
+    .screenshot-card h3 {
+      margin-top: 20px;
+      margin-bottom: 6px;
+      font-size: 1.15rem;
+    }
+
+    .screenshot-card p {
+      color: var(--text-secondary);
+      font-size: 0.85rem;
+      max-width: 270px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+
+    .legend {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .legend-bg {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 70% 50% at 50% 50%, rgba(201, 166, 70, 0.035) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .legend-content {
+      position: relative;
+      z-index: 1;
+    }
+
+    .legend-timeline {
+      margin-top: 48px;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+
+    .legend-timeline::before {
+      content: '';
+      position: absolute;
+      left: 19px;
+      top: 0;
+      bottom: 0;
+      width: 1px;
+      background: linear-gradient(180deg, var(--gold) 0%, var(--border) 100%);
+      opacity: 0.3;
+    }
+
+    .timeline-item {
+      display: flex;
+      gap: 24px;
+      padding: 24px 0;
+      position: relative;
+    }
+
+    .timeline-dot {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: var(--surface);
+      border: 2px solid var(--gold);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--gold);
+      flex-shrink: 0;
+      z-index: 1;
+    }
+
+    .timeline-content h4 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.2rem;
+      font-weight: 500;
+      color: var(--text);
+      margin-bottom: 6px;
+    }
+
+    .timeline-content p {
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+      line-height: 1.6;
+    }
+
+    .legend-quote {
+      margin-top: 48px;
+      padding: 36px 28px;
+      background: var(--surface);
+      border-radius: 20px;
+      border: 1px solid var(--border);
+      text-align: center;
+    }
+
+    .legend-quote p {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.4rem;
+      font-style: italic;
+      color: var(--text);
+      line-height: 1.5;
+    }
+
+    .legend-quote .quote-author {
+      margin-top: 16px;
+      font-size: 0.75rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+
+    .feedback {
+      background: var(--surface);
+    }
+
+    .feedback-form {
+      max-width: 640px;
+      margin: 48px auto 0;
+    }
+
+    .form-group {
+      margin-bottom: 32px;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 0.95rem;
+      font-weight: 500;
+      color: var(--text);
+      margin-bottom: 14px;
+      line-height: 1.5;
+    }
+
+    .label-hint {
+      display: block;
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+      margin-top: 4px;
+      font-weight: 400;
+    }
+
+    .radio-group,
+    .checkbox-group {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .radio-option,
+    .checkbox-option {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 15px 18px;
+      background: var(--bg);
+      border: 1.5px solid var(--border);
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      font-size: 0.92rem;
+      color: var(--text-secondary);
+    }
+
+    .radio-option:hover,
+    .checkbox-option:hover {
+      border-color: var(--border-hover);
+    }
+
+    .radio-option input,
+    .checkbox-option input {
+      appearance: none;
+      -webkit-appearance: none;
+      width: 20px;
+      height: 20px;
+      border: 2px solid var(--border-hover);
+      flex-shrink: 0;
+      cursor: pointer;
+      position: relative;
+      transition: all 0.2s ease;
+    }
+
+    .radio-option input {
+      border-radius: 50%;
+    }
+
+    .checkbox-option input {
+      border-radius: 6px;
+    }
+
+    .radio-option input:checked,
+    .checkbox-option input:checked {
+      border-color: var(--gold);
+      background: var(--gold);
+    }
+
+    .radio-option input:checked::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 7px;
+      height: 7px;
+      background: var(--bg);
+      border-radius: 50%;
+    }
+
+    .checkbox-option input:checked::after {
+      content: '✓';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 12px;
+      color: var(--bg);
+      font-weight: 700;
+    }
+
+    .radio-option:has(input:checked),
+    .checkbox-option:has(input:checked) {
+      border-color: var(--gold);
+      color: var(--text);
+    }
+
+    textarea,
+    .form-input {
+      width: 100%;
+      padding: 14px 16px;
+      background: var(--bg);
+      border: 1.5px solid var(--border);
+      border-radius: 12px;
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      font-size: 0.95rem;
+      transition: border-color 0.2s ease;
+    }
+
+    textarea {
+      min-height: 120px;
+      resize: vertical;
+    }
+
+    textarea:focus,
+    .form-input:focus {
+      outline: none;
+      border-color: var(--gold);
+    }
+
+    textarea::placeholder,
+    .form-input::placeholder {
+      color: var(--text-secondary);
+      opacity: 0.5;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 16px;
+    }
+
+    @media (min-width: 480px) {
+      .form-row {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    .form-submit .btn {
+      width: 100%;
+      padding: 18px;
+      font-size: 1rem;
+      min-height: 56px;
+    }
+
+    .closing {
+      text-align: center;
+      padding: 100px 0 80px;
+      position: relative;
+    }
+
+    .closing-bg {
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 60% 50% at 50% 40%, rgba(201, 166, 70, 0.05) 0%, transparent 60%);
+      pointer-events: none;
+    }
+
+    .closing-content {
+      position: relative;
+      z-index: 1;
+    }
+
+    .closing h2 {
+      font-size: clamp(1.8rem, 6vw, 3rem);
+      margin-bottom: 16px;
+    }
+
+    .closing p {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.3rem;
+      color: var(--text-secondary);
+      font-style: italic;
+      margin-bottom: 40px;
+    }
+
+    .closing .divider {
+      margin: 0 auto 40px;
+    }
+
+    footer {
+      padding: 32px 0 48px;
+      text-align: center;
+      border-top: 1px solid var(--border);
+    }
+
+    footer p {
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+      opacity: 0.6;
+    }
+
+    footer .footer-brand {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.1rem;
+      color: var(--text);
+      opacity: 0.8;
+      margin-bottom: 8px;
+    }
+
+    .sticky-nav {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: rgba(7, 16, 20, 0.92);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-top: 1px solid var(--border);
+      padding: 12px 16px;
+      display: flex;
+      gap: 10px;
+      z-index: 100;
+      justify-content: center;
+    }
+
+    .sticky-nav .btn {
+      min-height: 44px;
+      padding: 10px 20px;
+      font-size: 0.85rem;
+      flex: 1;
+      max-width: 180px;
+      min-width: 0;
+    }
+
+    .sticky-nav-spacer {
+      height: 72px;
+    }
+
+    @media (min-width: 768px) {
+      .sticky-nav,
+      .sticky-nav-spacer {
+        display: none;
+      }
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    ::selection {
+      background: rgba(201, 166, 70, 0.3);
+      color: var(--text);
+    }
+  </style>
 </head>
+
 <body>
 
-    <!-- HERO -->
-    <section class="hero" id="hero">
-        <div class="hero-bg"></div>
-        <div class="container hero-content">
-            <div class="label hero-label">Extremwander-Community</div>
-            <h1>Die digitale Hall of Fame für Extremmärsche.</h1>
-            <p class="hero-subtitle">Sammle deine Finishes. Baue deinen Veteranenstatus auf. Bewahre deine Marschgeschichte an einem Ort.</p>
-            <div class="btn-group">
-                <a href="#feedback" class="btn btn-primary">Feedback geben</a>
-                <a href="#feedback" class="btn btn-outline">Early Tester werden</a>
-            </div>
+  <section class="hero" id="hero">
+    <div class="hero-bg"></div>
+    <div class="container hero-content">
+      <div class="label hero-label">Extremwander-Community</div>
+      <h1>Die digitale Hall of Fame für Extremmärsche.</h1>
+      <p class="hero-subtitle">Sammle deine Finishes. Baue deinen Veteranenstatus auf. Bewahre deine Marschgeschichte an einem Ort.</p>
 
-            <div class="hero-phones">
-                <div class="phone-mockup">
-                    <div class="phone-screen">
-                        <div class="placeholder-icon">🏔️</div>
-                        <div class="placeholder-label">App Screenshot</div>
-                        <div class="placeholder-label" style="font-size:0.95rem; margin-top:4px;">Home</div>
-                        <div class="placeholder-sub">[APP SCREENSHOT HOME]</div>
-                    </div>
-                </div>
-                <div class="phone-mockup">
-                    <div class="phone-screen">
-                        <div class="placeholder-icon">🏅</div>
-                        <div class="placeholder-label">App Screenshot</div>
-                        <div class="placeholder-label" style="font-size:0.95rem; margin-top:4px;">Hall of Fame</div>
-                        <div class="placeholder-sub">[APP SCREENSHOT HALL OF FAME]</div>
-                    </div>
-                </div>
-            </div>
+      <div class="btn-group">
+        <a href="#feedback" class="btn btn-primary">Feedback geben</a>
+        <a href="#feedback" class="btn btn-outline">Early Tester werden</a>
+      </div>
+
+      <div class="hero-phones">
+        <div class="phone-mockup">
+          <div class="phone-screen">
+            <img src="./01_home_android.png" alt="March Legends Übersicht">
+          </div>
         </div>
-    </section>
 
-    <!-- PROBLEM -->
-    <section class="problem" id="problem">
-        <div class="container">
-            <div class="section-header">
-                <div class="label">Die Lücke</div>
-                <h2>Wohin mit deiner Marschgeschichte?</h2>
-                <p class="body-large">Heute existieren viele Fragmente — aber kein zentraler Ort für die gesamte Historie eines Extremwanderers.</p>
-            </div>
-
-            <div class="problem-items">
-                <div class="problem-item"><span class="dot"></span><span>Medaillen in der Schublade</span></div>
-                <div class="problem-item"><span class="dot"></span><span>Urkunden im Ordner</span></div>
-                <div class="problem-item"><span class="dot"></span><span>Fotos verteilt auf Handys</span></div>
-                <div class="problem-item"><span class="dot"></span><span>Strava-Aktivitäten verloren</span></div>
-                <div class="problem-item"><span class="dot"></span><span>Finisher-Shirts im Schrank</span></div>
-                <div class="problem-item"><span class="dot"></span><span>Jahresbilanzen in Excel</span></div>
-            </div>
-
-            <div class="problem-conclusion">
-                "Deine Marschgeschichte verdient einen würdigen Rahmen. Nicht verstreut — sondern bewahrt."
-            </div>
+        <div class="phone-mockup">
+          <div class="phone-screen">
+            <img src="./04_hall_of_fame_android.png" alt="March Legends Hall of Fame">
+          </div>
         </div>
-    </section>
-
-    <!-- SOLUTION -->
-    <section class="solution" id="solution">
-        <div class="container">
-            <div class="section-header">
-                <div class="label">Die Antwort</div>
-                <h2>March Legends</h2>
-                <p class="body-large">Kein Ersatz für Strava, Komoot oder Garmin. Ein Zuhause für deine Marschgeschichte.</p>
-            </div>
-
-            <div class="solution-grid">
-                <div class="solution-card">
-                    <div class="card-icon">🏛️</div>
-                    <h3>Hall of Fame</h3>
-                    <p>Deine persönliche Medaillenwand. Jeder Finish wird zu einem sichtbaren Meilenstein.</p>
-                </div>
-                <div class="solution-card">
-                    <div class="card-icon">⚔️</div>
-                    <h3>Veteranenlevel</h3>
-                    <p>Vom Neuling zum Veteranen. Dein Status wächst mit jedem absolvierten Marsch.</p>
-                </div>
-                <div class="solution-card">
-                    <div class="card-icon">📜</div>
-                    <h3>Eventarchiv</h3>
-                    <p>Alle deine Veranstaltungen an einem Ort. Mit Details, Erinnerungen und Statistiken.</p>
-                </div>
-                <div class="solution-card">
-                    <div class="card-icon">📊</div>
-                    <h3>Saisonübersicht</h3>
-                    <p>Deine persönliche Jahresbilanz. Kilometer, Höhenmeter, Finishes — auf einen Blick.</p>
-                </div>
-                <div class="solution-card">
-                    <div class="card-icon">🏆</div>
-                    <h3>Ranglisten</h3>
-                    <p>Vergleiche dich mit der Community. Wer hat die meisten Finishes? Die längsten Strecken?</p>
-                </div>
-                <div class="solution-card">
-                    <div class="card-icon">✓</div>
-                    <h3>Verifizierte Finishes</h3>
-                    <p>Echte Ergebnisse, keine Fake-Claims. Deine Leistungen werden verifiziert und gewürdigt.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- SCREENSHOTS -->
-    <section class="screenshots" id="screenshots">
-        <div class="container">
-            <div class="section-header" style="text-align:center;">
-                <div class="label">App Einblicke</div>
-                <h2>So sieht March Legends aus</h2>
-                <div class="divider divider-center"></div>
-                <p class="body-large" style="margin:0 auto;">Screenshots folgen. Die Struktur steht.</p>
-            </div>
-
-            <div class="screenshot-grid">
-                <div class="screenshot-card">
-                    <div class="phone-mockup">
-                        <div class="phone-screen">
-                            <div class="placeholder-icon">🏔️</div>
-                            <div class="placeholder-label">Übersicht</div>
-                            <div class="placeholder-sub">[APP SCREENSHOT HOME]</div>
-                        </div>
-                    </div>
-                    <h3>Übersicht</h3>
-                    <p>Dein Dashboard mit aktuellem Veteranenstatus, Saisonstatistik und letzten Finishes.</p>
-                </div>
-                <div class="screenshot-card">
-                    <div class="phone-mockup">
-                        <div class="phone-screen">
-                            <div class="placeholder-icon">🏅</div>
-                            <div class="placeholder-label">Hall of Fame</div>
-                            <div class="placeholder-sub">[APP SCREENSHOT HALL OF FAME]</div>
-                        </div>
-                    </div>
-                    <h3>Hall of Fame</h3>
-                    <p>Deine digitale Medaillenwand. Jeder Finish als visueller Meilenstein dargestellt.</p>
-                </div>
-                <div class="screenshot-card">
-                    <div class="phone-mockup">
-                        <div class="phone-screen">
-                            <div class="placeholder-icon">👤</div>
-                            <div class="placeholder-label">Profil</div>
-                            <div class="placeholder-sub">[APP SCREENSHOT PROFILE]</div>
-                        </div>
-                    </div>
-                    <h3>Profil</h3>
-                    <p>Dein Veteranenprofil mit Marschhistorie, Statistiken und öffentlichem Leaderboard-Rang.</p>
-                </div>
-                <div class="screenshot-card">
-                    <div class="phone-mockup">
-                        <div class="phone-screen">
-                            <div class="placeholder-icon">📈</div>
-                            <div class="placeholder-label">Ranglisten</div>
-                            <div class="placeholder-sub">[APP SCREENSHOT LEADERBOARD]</div>
-                        </div>
-                    </div>
-                    <h3>Ranglisten</h3>
-                    <p>Community-Rankings nach Finishes, Distanz, Veteranenlevel und Event-Teilnahmen.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- LEGEND -->
-    <section class="legend" id="legend">
-        <div class="legend-bg"></div>
-        <div class="container legend-content">
-            <div class="section-header">
-                <div class="label">Deine Reise</div>
-                <h2>Deine Legende beginnt mit dem ersten Schritt</h2>
-                <p class="body-large">March Legends ist kein Fitness-Tracker. Es ist dein digitales Wander-Lebenswerk.</p>
-            </div>
-
-            <div class="legend-timeline">
-                <div class="timeline-item">
-                    <div class="timeline-dot">1</div>
-                    <div class="timeline-content">
-                        <h4>Der erste Mammutmarsch</h4>
-                        <p>Alles beginnt mit einem einzigen Finish. Der Moment, in dem du dich selbst übertroffen hast.</p>
-                    </div>
-                </div>
-                <div class="timeline-item">
-                    <div class="timeline-dot">5</div>
-                    <div class="timeline-content">
-                        <h4>Der fünfte Finish</h4>
-                        <p>Du bist kein Anfänger mehr. Die Medaillenwand füllt sich. Du führst Bilanz.</p>
-                    </div>
-                </div>
-                <div class="timeline-item">
-                    <div class="timeline-dot">10</div>
-                    <div class="timeline-content">
-                        <h4>Der zehnte Mammutmarsch</h4>
-                        <p>Veteranenstatus erreicht. Die Community kennt deinen Namen. Du teilst deine Erfahrung.</p>
-                    </div>
-                </div>
-                <div class="timeline-item">
-                    <div class="timeline-dot">N</div>
-                    <div class="timeline-content">
-                        <h4>Nachtmärsche & Extrem Extrem</h4>
-                        <p>Die nächtlichen Abenteuer, die 24h-Wanderungen — jeder hat seine eigene Geschichte.</p>
-                    </div>
-                </div>
-                <div class="timeline-item">
-                    <div class="timeline-dot">∞</div>
-                    <div class="timeline-content">
-                        <h4>Deine persönliche Entwicklung</h4>
-                        <p>Jahre voller Erlebnisse, dokumentiert an einem Ort. Deine Marschgeschichte — für immer bewahrt.</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="legend-quote">
-                <p>"Nicht jeder Marsch ist ein Wettkampf.<br> Aber jeder Marsch ist ein Kapitel deiner Geschichte."</p>
-                <div class="quote-author">— March Legends</div>
-            </div>
-        </div>
-    </section>
-
-    <!-- FEEDBACK -->
-    <section class="feedback" id="feedback">
-        <div class="container">
-            <div class="section-header" style="text-align:center;">
-                <div class="label">Deine Stimme zählt</div>
-                <h2>Hilf uns, March Legends zu formen</h2>
-                <div class="divider divider-center"></div>
-                <p class="body-large" style="margin:0 auto;">Diese Landing Page lebt von echtem Feedback. Sag uns, was du denkst.</p>
-            </div>
-
-            <form class="feedback-form" onsubmit="event.preventDefault(); alert('Danke für dein Feedback! (Dies ist eine Demo — Backend-Anbindung folgt.)');">
-
-                <div class="form-group">
-                    <label>1. Würdest du March Legends nutzen?</label>
-                    <div class="radio-group">
-                        <label class="radio-option"><input type="radio" name="q1" value="ja"><span>Ja, definitiv</span></label>
-                        <label class="radio-option"><input type="radio" name="q1" value="vielleicht"><span>Vielleicht — kommt auf die Details an</span></label>
-                        <label class="radio-option"><input type="radio" name="q1" value="nein"><span>Nein, nicht für mich</span></label>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label>2. Was interessiert dich am meisten? <span class="label-hint">Mehrfachauswahl möglich</span></label>
-                    <div class="checkbox-group">
-                        <label class="checkbox-option"><input type="checkbox" name="q2" value="halloffame"><span>Hall of Fame</span></label>
-                        <label class="checkbox-option"><input type="checkbox" name="q2" value="veteranenlevel"><span>Veteranenlevel</span></label>
-                        <label class="checkbox-option"><input type="checkbox" name="q2" value="eventarchiv"><span>Eventarchiv</span></label>
-                        <label class="checkbox-option"><input type="checkbox" name="q2" value="ranglisten"><span>Ranglisten</span></label>
-                        <label class="checkbox-option"><input type="checkbox" name="q2" value="saison"><span>Saisonübersicht</span></label>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label>3. Wie viele Extremmärsche hast du ungefähr absolviert?</label>
-                    <div class="radio-group">
-                        <label class="radio-option"><input type="radio" name="q3" value="0-1"><span>0–1</span></label>
-                        <label class="radio-option"><input type="radio" name="q3" value="2-5"><span>2–5</span></label>
-                        <label class="radio-option"><input type="radio" name="q3" value="6-10"><span>6–10</span></label>
-                        <label class="radio-option"><input type="radio" name="q3" value="10+"><span>10+</span></label>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label>4. Würdest du dein Profil öffentlich zeigen?</label>
-                    <div class="radio-group">
-                        <label class="radio-option"><input type="radio" name="q4" value="ja"><span>Ja, gerne</span></label>
-                        <label class="radio-option"><input type="radio" name="q4" value="vielleicht"><span>Vielleicht — mit Einschränkungen</span></label>
-                        <label class="radio-option"><input type="radio" name="q4" value="nein"><span>Nein, lieber privat</span></label>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label>5. Welche Funktion fehlt dir?</label>
-                    <textarea name="q5" placeholder="Deine Ideen, Wünsche und Anregungen..."></textarea>
-                </div>
-
-                <div class="form-group">
-                    <label>6. Möchtest du Early Tester werden? <span class="label-hint">Optional — wir melden uns bei dir</span></label>
-                    <div class="form-row">
-                        <input type="text" name="name" class="form-input" placeholder="Name (optional)">
-                        <input type="email" name="email" class="form-input" placeholder="E-Mail (optional)">
-                    </div>
-                </div>
-
-                <div class="form-submit">
-                    <button type="submit" class="btn btn-primary">Feedback absenden</button>
-                </div>
-            </form>
-        </div>
-    </section>
-
-    <!-- CLOSING -->
-    <section class="closing" id="closing">
-        <div class="closing-bg"></div>
-        <div class="container closing-content">
-            <div class="divider"></div>
-            <h2>Jeder Marsch erzählt eine Geschichte.</h2>
-            <p>March Legends bewahrt sie.</p>
-            <a href="#feedback" class="btn btn-primary">Feedback geben</a>
-        </div>
-    </section>
-
-    <!-- FOOTER -->
-    <footer>
-        <div class="container">
-            <div class="footer-brand">March Legends</div>
-            <p>Die digitale Hall of Fame für Extremmärsche · Made for the Community</p>
-        </div>
-    </footer>
-
-    <!-- Sticky Bottom Nav -->
-    <div class="sticky-nav-spacer"></div>
-    <div class="sticky-nav">
-        <a href="#feedback" class="btn btn-outline">Feedback</a>
-        <a href="#feedback" class="btn btn-primary">Early Tester</a>
+      </div>
     </div>
+  </section>
 
-    <script>
-        const revealElements = document.querySelectorAll('.section-header, .card, .solution-card, .screenshot-card, .timeline-item, .legend-quote, .form-group');
-        
-        const revealObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('reveal', 'visible');
-                    revealObserver.unobserve(entry.target);
-                }
-            });
-        }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+  <section class="problem" id="problem">
+    <div class="container">
+      <div class="section-header">
+        <div class="label">Die Lücke</div>
+        <h2>Wohin mit deiner Marschgeschichte?</h2>
+        <p class="body-large">Heute existieren viele Fragmente — aber kein zentraler Ort für die gesamte Historie eines Extremwanderers.</p>
+      </div>
 
-        revealElements.forEach(el => {
-            el.classList.add('reveal');
-            revealObserver.observe(el);
-        });
+      <div class="problem-items">
+        <div class="problem-item"><span class="dot"></span><span>Medaillen in der Schublade</span></div>
+        <div class="problem-item"><span class="dot"></span><span>Urkunden im Ordner</span></div>
+        <div class="problem-item"><span class="dot"></span><span>Fotos verteilt auf Handys</span></div>
+        <div class="problem-item"><span class="dot"></span><span>Strava-Aktivitäten verloren</span></div>
+        <div class="problem-item"><span class="dot"></span><span>Finisher-Shirts im Schrank</span></div>
+        <div class="problem-item"><span class="dot"></span><span>Jahresbilanzen in Excel</span></div>
+      </div>
 
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                }
-            });
-        });
-    </script>
+      <div class="problem-conclusion">
+        "Deine Marschgeschichte verdient einen würdigen Rahmen. Nicht verstreut — sondern bewahrt."
+      </div>
+    </div>
+  </section>
+
+  <section class="solution" id="solution">
+    <div class="container">
+      <div class="section-header">
+        <div class="label">Die Antwort</div>
+        <h2>March Legends</h2>
+        <p class="body-large">Kein Ersatz für Strava, Komoot oder Garmin. Ein Zuhause für deine Marschgeschichte.</p>
+      </div>
+
+      <div class="solution-grid">
+        <div class="solution-card">
+          <div class="card-icon">🏛️</div>
+          <h3>Hall of Fame</h3>
+          <p>Deine persönliche Medaillenwand. Jeder Finish wird zu einem sichtbaren Meilenstein.</p>
+        </div>
+
+        <div class="solution-card">
+          <div class="card-icon">⚔️</div>
+          <h3>Veteranenlevel</h3>
+          <p>Vom Neuling zum Veteranen. Dein Status wächst mit jedem absolvierten Marsch.</p>
+        </div>
+
+        <div class="solution-card">
+          <div class="card-icon">📜</div>
+          <h3>Eventarchiv</h3>
+          <p>Alle deine Veranstaltungen an einem Ort. Mit Details, Erinnerungen und Statistiken.</p>
+        </div>
+
+        <div class="solution-card">
+          <div class="card-icon">📊</div>
+          <h3>Saisonübersicht</h3>
+          <p>Deine persönliche Jahresbilanz. Kilometer, Stunden, Finishes — auf einen Blick.</p>
+        </div>
+
+        <div class="solution-card">
+          <div class="card-icon">🏆</div>
+          <h3>Ranglisten</h3>
+          <p>Vergleiche dich mit der Community. Wer hat die meisten verifizierten Finishes?</p>
+        </div>
+
+        <div class="solution-card">
+          <div class="card-icon">✓</div>
+          <h3>Verifizierte Finishes</h3>
+          <p>Echte Ergebnisse statt Fake-Claims. Deine Leistungen werden sichtbar gewürdigt.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="screenshots" id="screenshots">
+    <div class="container">
+      <div class="section-header" style="text-align:center;">
+        <div class="label">App Einblicke</div>
+        <h2>So sieht March Legends aus</h2>
+        <div class="divider divider-center"></div>
+        <p class="body-large" style="margin:0 auto;">Die wichtigsten Bereiche der App: Übersicht, Events, Eintragung, Hall of Fame, Ranglisten und Profil.</p>
+      </div>
+
+      <div class="screenshot-grid">
+        <div class="screenshot-card">
+          <div class="phone-mockup">
+            <div class="phone-screen">
+              <img src="./01_home_android.png" alt="March Legends Übersicht">
+            </div>
+          </div>
+          <h3>Übersicht</h3>
+          <p>Dein Dashboard mit Veteranenstatus, Saisonstatistik und letzten Finishes.</p>
+        </div>
+
+        <div class="screenshot-card">
+          <div class="phone-mockup">
+            <div class="phone-screen">
+              <img src="./02_events_android.png" alt="March Legends Events">
+            </div>
+          </div>
+          <h3>Events</h3>
+          <p>Event-Presets, eigene Einträge und deine persönliche Marschhistorie.</p>
+        </div>
+
+        <div class="screenshot-card">
+          <div class="phone-mockup">
+            <div class="phone-screen">
+              <img src="./03_add_event_android.png" alt="March Legends Event hinzufügen">
+            </div>
+          </div>
+          <h3>Event hinzufügen</h3>
+          <p>Trage absolvierte Märsche ein und lade optional deinen Nachweis hoch.</p>
+        </div>
+
+        <div class="screenshot-card">
+          <div class="phone-mockup">
+            <div class="phone-screen">
+              <img src="./04_hall_of_fame_android.png" alt="March Legends Hall of Fame">
+            </div>
+          </div>
+          <h3>Hall of Fame</h3>
+          <p>Deine digitale Medaillenwand. Jeder Finish als sichtbarer Meilenstein.</p>
+        </div>
+
+        <div class="screenshot-card">
+          <div class="phone-mockup">
+            <div class="phone-screen">
+              <img src="./05_leaderboard_android.png" alt="March Legends Ranglisten">
+            </div>
+          </div>
+          <h3>Ranglisten</h3>
+          <p>Community-Rankings auf Basis verifizierter Events und Saisonleistung.</p>
+        </div>
+
+        <div class="screenshot-card">
+          <div class="phone-mockup">
+            <div class="phone-screen">
+              <img src="./06_profile_mara_android.png" alt="March Legends Profil Mara">
+            </div>
+          </div>
+          <h3>Profil</h3>
+          <p>Dein Veteranenprofil mit Statistiken, Auszeichnungen und Hall-of-Fame-Vorschau.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="legend" id="legend">
+    <div class="legend-bg"></div>
+    <div class="container legend-content">
+      <div class="section-header">
+        <div class="label">Deine Reise</div>
+        <h2>Deine Legende beginnt mit dem ersten Schritt</h2>
+        <p class="body-large">March Legends ist kein Fitness-Tracker. Es ist dein digitales Wander-Lebenswerk.</p>
+      </div>
+
+      <div class="legend-timeline">
+        <div class="timeline-item">
+          <div class="timeline-dot">1</div>
+          <div class="timeline-content">
+            <h4>Der erste Mammutmarsch</h4>
+            <p>Alles beginnt mit einem einzigen Finish. Der Moment, in dem du dich selbst übertroffen hast.</p>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-dot">5</div>
+          <div class="timeline-content">
+            <h4>Der fünfte Finish</h4>
+            <p>Du bist kein Anfänger mehr. Die Medaillenwand füllt sich. Du führst Bilanz.</p>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-dot">10</div>
+          <div class="timeline-content">
+            <h4>Der zehnte Finish</h4>
+            <p>Veteranenstatus erreicht. Deine Historie wird zu einer sichtbaren Leistung.</p>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-dot">N</div>
+          <div class="timeline-content">
+            <h4>Nachtmärsche & 24h-Wanderungen</h4>
+            <p>Die langen Nächte, die harten Stunden, die besonderen Kapitel deiner Marschgeschichte.</p>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="timeline-dot">∞</div>
+          <div class="timeline-content">
+            <h4>Deine persönliche Entwicklung</h4>
+            <p>Jahre voller Erlebnisse, dokumentiert an einem Ort. Deine Marschgeschichte — dauerhaft bewahrt.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="legend-quote">
+        <p>"Nicht jeder Marsch ist ein Wettkampf.<br>Aber jeder Marsch ist ein Kapitel deiner Geschichte."</p>
+        <div class="quote-author">— March Legends</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="feedback" id="feedback">
+    <div class="container">
+      <div class="section-header" style="text-align:center;">
+        <div class="label">Deine Stimme zählt</div>
+        <h2>Hilf uns, March Legends zu formen</h2>
+        <div class="divider divider-center"></div>
+        <p class="body-large" style="margin:0 auto;">Diese Landing Page lebt von echtem Feedback. Sag uns, was du denkst.</p>
+      </div>
+
+      <form class="feedback-form" onsubmit="event.preventDefault(); alert('Danke für dein Feedback! Backend-Anbindung folgt.');">
+        <div class="form-group">
+          <label>1. Würdest du March Legends nutzen?</label>
+          <div class="radio-group">
+            <label class="radio-option"><input type="radio" name="q1" value="ja"><span>Ja, definitiv</span></label>
+            <label class="radio-option"><input type="radio" name="q1" value="vielleicht"><span>Vielleicht — kommt auf die Details an</span></label>
+            <label class="radio-option"><input type="radio" name="q1" value="nein"><span>Nein, nicht für mich</span></label>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>2. Was interessiert dich am meisten? <span class="label-hint">Mehrfachauswahl möglich</span></label>
+          <div class="checkbox-group">
+            <label class="checkbox-option"><input type="checkbox" name="q2" value="halloffame"><span>Hall of Fame</span></label>
+            <label class="checkbox-option"><input type="checkbox" name="q2" value="veteranenlevel"><span>Veteranenlevel</span></label>
+            <label class="checkbox-option"><input type="checkbox" name="q2" value="eventarchiv"><span>Eventarchiv</span></label>
+            <label class="checkbox-option"><input type="checkbox" name="q2" value="ranglisten"><span>Ranglisten</span></label>
+            <label class="checkbox-option"><input type="checkbox" name="q2" value="saison"><span>Saisonübersicht</span></label>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>3. Wie viele Extremmärsche hast du ungefähr absolviert?</label>
+          <div class="radio-group">
+            <label class="radio-option"><input type="radio" name="q3" value="0-1"><span>0–1</span></label>
+            <label class="radio-option"><input type="radio" name="q3" value="2-5"><span>2–5</span></label>
+            <label class="radio-option"><input type="radio" name="q3" value="6-10"><span>6–10</span></label>
+            <label class="radio-option"><input type="radio" name="q3" value="10+"><span>10+</span></label>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>4. Würdest du dein Profil öffentlich zeigen?</label>
+          <div class="radio-group">
+            <label class="radio-option"><input type="radio" name="q4" value="ja"><span>Ja, gerne</span></label>
+            <label class="radio-option"><input type="radio" name="q4" value="vielleicht"><span>Vielleicht — mit Einschränkungen</span></label>
+            <label class="radio-option"><input type="radio" name="q4" value="nein"><span>Nein, lieber privat</span></label>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>5. Welche Funktion fehlt dir?</label>
+          <textarea name="q5" placeholder="Deine Ideen, Wünsche und Anregungen..."></textarea>
+        </div>
+
+        <div class="form-group">
+          <label>6. Möchtest du Early Tester werden? <span class="label-hint">Optional — wir melden uns bei dir</span></label>
+          <div class="form-row">
+            <input type="text" name="name" class="form-input" placeholder="Name optional">
+            <input type="email" name="email" class="form-input" placeholder="E-Mail optional">
+          </div>
+        </div>
+
+        <div class="form-submit">
+          <button type="submit" class="btn btn-primary">Feedback absenden</button>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <section class="closing" id="closing">
+    <div class="closing-bg"></div>
+    <div class="container closing-content">
+      <div class="divider"></div>
+      <h2>Jeder Marsch erzählt eine Geschichte.</h2>
+      <p>March Legends bewahrt sie.</p>
+      <a href="#feedback" class="btn btn-primary">Feedback geben</a>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <div class="footer-brand">March Legends</div>
+      <p>Die digitale Hall of Fame für Extremmärsche · Made for the Community</p>
+    </div>
+  </footer>
+
+  <div class="sticky-nav-spacer"></div>
+  <div class="sticky-nav">
+    <a href="#feedback" class="btn btn-outline">Feedback</a>
+    <a href="#feedback" class="btn btn-primary">Early Tester</a>
+  </div>
+
+  <script>
+    const revealElements = document.querySelectorAll(
+      '.section-header, .solution-card, .screenshot-card, .timeline-item, .legend-quote, .form-group'
+    );
+
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('reveal', 'visible');
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+    revealElements.forEach(el => {
+      el.classList.add('reveal');
+      revealObserver.observe(el);
+    });
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    });
+  </script>
+
 </body>
 </html>
